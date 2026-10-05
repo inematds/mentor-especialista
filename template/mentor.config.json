@@ -1,0 +1,16 @@
+{
+  "slug": "{{SLUG}}",
+  "especialista": "{{NOME}}",
+  "dominio": "{{DOMINIO}}",
+  "idiomas_legenda": ["pt", "en"],
+  "transcrever_cmd": "",
+  "timeout_video_s": 3600,
+  "metas_coleta": {
+    "video": { "itens": 5, "palavras": 20000 },
+    "web": { "itens": 5, "palavras": 10000 }
+  },
+  "secoes_resposta": ["Pronto", "Previsão", "Saída real", "Versão quebrada", "Relatório"],
+  "portao": {
+    "pastas_ignoradas": ["raw", "wiki", "docs", ".claude", ".mentor"]
+  }
+}

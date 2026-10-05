@@ -1,0 +1,7 @@
+# Aula 01 — Lista ligada do zero (transcrição fictícia de exemplo)
+[00:00:10] Hoje a gente não vai usar biblioteca nenhuma. Se você não consegue montar a coisa com as próprias mãos, você ainda não entendeu.
+[00:01:40] Primeiro a peça mínima: um nó com um valor e um ponteiro. Só isso. Nada de remover, nada de ordenar.
+[00:02:30] Antes de rodar, eu vou dizer o que espero: tamanho três. Eu sempre falo o número antes de apertar enter.
+[00:03:05] Rodou, deu três. Bateu com o que eu previ, então posso dar o próximo passo.
+[00:04:20] Agora olha esse bug que eu deixei de propósito: esqueci de avançar o ponteiro e o laço nunca termina. Errar na frente de vocês ensina mais do que mostrar o código limpo.
+[00:06:00] Uma peça de cada vez. Só depois que o inserir funciona é que eu escrevo o remover.

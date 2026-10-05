@@ -1,0 +1,4 @@
+.mentor/
+__pycache__/
+*.pyc
+testes/aceitacao/relatorio.txt

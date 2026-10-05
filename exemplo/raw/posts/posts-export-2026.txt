@@ -1,0 +1,6 @@
+Posts exportados manualmente (fictícios, para o exemplo do kit)
+
+2026-03-02: Se você não consegue montar a coisa com as próprias mãos, ainda não entendeu. Copiar e colar não conta.
+2026-04-11: Regra da casa: fale o número que você espera antes de rodar. Depois compare. É assim que a intuição cresce.
+2026-05-20: Dizer que funciona não é prova. Cola a saída.
+2026-06-08: Comece pela menor versão que roda. Uma peça de cada vez, sempre.

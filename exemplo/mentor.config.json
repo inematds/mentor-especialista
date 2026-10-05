@@ -1,0 +1,41 @@
+{
+  "slug": "exemplo",
+  "especialista": "Profa. Lia (personagem fictícia)",
+  "dominio": "ensinar programação construindo do zero",
+  "idiomas_legenda": [
+    "pt",
+    "en"
+  ],
+  "transcrever_cmd": "",
+  "timeout_video_s": 3600,
+  "metas_coleta": {
+    "video": {
+      "itens": 1,
+      "palavras": 100
+    },
+    "blog": {
+      "itens": 1,
+      "palavras": 100
+    },
+    "posts": {
+      "itens": 1,
+      "palavras": 50
+    }
+  },
+  "secoes_resposta": [
+    "Pronto",
+    "Previsão",
+    "Saída real",
+    "Versão quebrada",
+    "Relatório"
+  ],
+  "portao": {
+    "pastas_ignoradas": [
+      "raw",
+      "wiki",
+      "docs",
+      ".claude",
+      ".mentor"
+    ]
+  }
+}

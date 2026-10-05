@@ -1,0 +1,32 @@
+[
+  {
+    "id": "video-aula-01-lista-ligada",
+    "tipo": "video",
+    "url": "exemplo: aula 01 (fictícia)",
+    "titulo": "aula-01-lista-ligada",
+    "arquivo": "raw/video/aula-01-lista-ligada.txt",
+    "coletado_em": "2026-10-05",
+    "palavras": 145,
+    "sha256": "2d0541f17f1072fd428aeb37de2ab58bb4b88240bffd7403a8c166ff44ea2f9a"
+  },
+  {
+    "id": "blog-post-dizer-que-funciona",
+    "tipo": "blog",
+    "url": "exemplo: post do blog (fictício)",
+    "titulo": "post-dizer-que-funciona",
+    "arquivo": "raw/blog/post-dizer-que-funciona.md",
+    "coletado_em": "2026-10-05",
+    "palavras": 123,
+    "sha256": "dd61e4a31b9fe87f60cb682fd73bf164ca9b202f9552384b95755d3c6e4160fd"
+  },
+  {
+    "id": "posts-posts-export-2026",
+    "tipo": "posts",
+    "url": "exemplo: export manual (fictício)",
+    "titulo": "posts-export-2026",
+    "arquivo": "raw/posts/posts-export-2026.txt",
+    "coletado_em": "2026-10-05",
+    "palavras": 73,
+    "sha256": "78593a9e653953db474477c71c947b28c99f87ac8538617c83bde3e29a38999e"
+  }
+]
