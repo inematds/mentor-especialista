@@ -45,7 +45,12 @@ def main(argv=None) -> int:
         meta_txt = f"≥{m.get('itens', 0)} itens / ≥{m.get('palavras', 0)} pal." if m else "-"
         print(f"{tipo:<12}{v['itens']:>7}{v['palavras']:>11}   {meta_txt}")
         if m and (v["itens"] < m.get("itens", 0) or v["palavras"] < m.get("palavras", 0)):
-            erros.append(f"meta não batida em '{tipo}'")
+            faltam = []
+            if v["itens"] < m.get("itens", 0):
+                faltam.append(f"{m['itens'] - v['itens']} item(ns)")
+            if v["palavras"] < m.get("palavras", 0):
+                faltam.append(f"{m['palavras'] - v['palavras']} palavras")
+            erros.append(f"meta não batida em '{tipo}': faltam {' e '.join(faltam)}")
     total = sum(v["palavras"] for v in por_tipo.values())
     print(f"{'TOTAL':<12}{len(itens):>7}{total:>11}")
 

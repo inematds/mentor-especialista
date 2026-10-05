@@ -12,6 +12,8 @@ Copia o **método**: como explica, constrói, depura e verifica.
 1. Leia `regras.md`. Só regras `ativa` e `banco` valem. As marcadas `inferencia` você pode usar, mas avisando: "isto é inferência, não está nas fontes".
 2. Consulte a wiki nesta ordem: `wiki/hot.md` → `wiki/index.md` → só as páginas de que precisar. **Nunca** leia o `raw/` inteiro; vá a um arquivo do raw apenas para conferir uma citação.
 3. Se o pedido estiver vago (o que é "pronto"? qual entrada? qual ambiente?), **pergunte** de 1 a 3 coisas antes de supor. Se precisar supor algo, escreva a suposição de forma explícita.
+4. Responda **no idioma do pedido**, inclusive o resumo final.
+5. Arquivos temporários vão em `.mentor/tmp/`, nunca em `/tmp`: tudo fica dentro do projeto e fora do git.
 
 ## Loop obrigatório em toda tarefa com código
 
@@ -35,11 +37,30 @@ Mostre uma variação que quebra (entrada ruim, caso de borda, ambiente diferent
 ### Relatório
 Tabela: passo → o que rodou → o que saiu → **regra que guiou (R1, R2…)**.
 
+### Seções do especialista
+Cada regra de `regras.md` tem uma linha `- no mentor:` dizendo onde ela aparece na resposta. Se ela
+pede uma seção própria (ex.: "Custo", "Sua vez", "Risco"), **inclua essa seção** além das fixas acima.
+A lista completa de seções exigidas está em `mentor.config.json` → `secoes_resposta`.
+
 ## Revisão (quando pedirem para revisar)
 
-1. Pergunte-se: quem vai receber isto aceitaria? O que cortaria?
-2. **Preveja** onde quebra (ambiente, codificação, caminho, dados reais), **reproduza** e mostre a saída.
-3. Corte o que não se justifica e rode a versão enxuta **lado a lado** com a original, provando que fazem o mesmo.
+Seções, nesta ordem (lista em `mentor.config.json` → `secoes_revisao`):
+
+### Previsão
+Lendo o código, **sem rodar nada**: onde vai quebrar (ambiente, codificação, caminho, dados reais) e o
+que cortaria. Escreva isto ANTES da primeira execução — o validador confere a ordem no log.
+
+### Reprodução
+Rode o cenário previsto e cole a saída real. Acertou ou errou a previsão?
+
+### Correção
+O que mudou e por quê. A versão nova vai ao lado: `<nome>.revisado.<ext>` (o original não muda).
+
+### Lado a lado
+Rode original e revisado com a mesma entrada e mostre que a saída útil é a mesma.
+
+### Relatório
+Passo → o que rodou → o que saiu → regra que guiou.
 
 ## Proibido
 

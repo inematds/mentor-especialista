@@ -77,7 +77,7 @@ template/                 o projeto que cada mentor recebe
   └── .claude/            agente mentor · 6 skills · portão de execução + settings.json
 exemplo/                  um mentor completo de um especialista FICTÍCIO, passando em tudo
 docs/                     plano da solução, treinamento e guia de adaptação
-tests/                    56 testes do próprio kit (pytest)
+tests/                    70 testes do próprio kit (pytest)
 ```
 
 ## Ajuste ao seu ecossistema
@@ -91,10 +91,29 @@ Tudo o que muda entre uma casa e outra fica em `mentor.config.json`:
 
 Fontes sem coletor automático (posts de redes sociais, PDFs, notas) entram por `coletar_arquivo.py`, a partir de uma exportação manual. **O kit não chama nenhuma API paga.**
 
+## Atualizar um mentor que você já criou
+
+Quando sair uma versão nova do kit, atualize o seu mentor sem perder nada:
+
+```bash
+git pull
+python3 novo-mentor.py --atualizar ~/mentores/mentor-prof-redes
+```
+
+Substitui os scripts (`tools/`), o agente, as skills e o portão; acrescenta ao `mentor.config.json` só as chaves novas. **Não toca** em `raw/`, `wiki/`, `regras.md`, `ESCOPO.md` nem nas respostas. As versões anteriores ficam em `.mentor/backup-<data>/`.
+
+## "Stop hook error occurred"? É o portão funcionando
+
+Quando o mentor escreve código e tenta terminar sem rodar, o Claude Code mostra esse aviso. Não é defeito: é o portão de execução devolvendo o turno com o recado "Você escreveu código e não rodou". O agente roda o código e segue.
+
+## Piloto real
+
+O kit foi validado com um especialista de verdade: o próprio Nei, com 22 fontes públicas e 189 mil palavras. Resultado: 4 de 5 critérios e nota 8 em "reconheço a pessoa nas regras". As falhas que ele encontrou viraram a versão 1.2. O mentor completo é público em **[inematds/mentor-nei](https://github.com/inematds/mentor-nei)**: acervo, wiki, regras, diário e resultados.
+
 ## Testar o próprio kit
 
 ```bash
-python3 -m pytest -q tests     # → 56 passed
+python3 -m pytest -q tests     # → 70 passed
 ```
 
 ## Documentação

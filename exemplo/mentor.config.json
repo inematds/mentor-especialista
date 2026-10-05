@@ -37,5 +37,12 @@
       ".claude",
       ".mentor"
     ]
-  }
+  },
+  "secoes_revisao": [
+    "Previsão",
+    "Reprodução",
+    "Correção",
+    "Lado a lado",
+    "Relatório"
+  ]
 }

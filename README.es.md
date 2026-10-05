@@ -77,7 +77,7 @@ template/                 el proyecto que recibe cada mentor
   └── .claude/            agente mentor · 6 skills · puerta de ejecución + settings.json
 exemplo/                  un mentor completo de un experto FICTICIO, que pasa todo
 docs/                     plan de la solución, entrenamiento y guía de adaptación
-tests/                    56 pruebas del propio kit (pytest)
+tests/                    70 pruebas del propio kit (pytest)
 ```
 
 ## Ajústalo a tu ecosistema
@@ -91,10 +91,29 @@ Todo lo que cambia de un entorno a otro está en `mentor.config.json`:
 
 Las fuentes sin recolector automático (publicaciones de redes sociales, PDFs, notas) entran por `coletar_arquivo.py`, a partir de una exportación manual. **El kit no llama a ninguna API de pago.**
 
+## Actualizar un mentor que ya creaste
+
+Cuando salga una versión nueva del kit, actualiza tu mentor sin perder nada:
+
+```bash
+git pull
+python3 novo-mentor.py --atualizar ~/mentores/mentor-prof-redes
+```
+
+Reemplaza los scripts (`tools/`), el agente, las skills y la puerta, y agrega a `mentor.config.json` solo las claves nuevas. **No toca** `raw/`, `wiki/`, `regras.md`, `ESCOPO.md` ni las respuestas guardadas. Las versiones anteriores quedan en `.mentor/backup-<fecha>/`.
+
+## ¿"Stop hook error occurred"? Es la puerta funcionando
+
+Cuando el mentor escribe código e intenta terminar sin ejecutarlo, Claude Code muestra este aviso. No es un defecto: es la puerta de ejecución devolviendo el turno con el mensaje "Escribiste código y no lo ejecutaste". El agente ejecuta el código y sigue.
+
+## Piloto real
+
+El kit se validó con un experto de verdad: el propio Nei, con 22 fuentes públicas y 189 mil palabras. Resultado: 4 de 5 criterios y nota 8 en "reconozco a la persona en las reglas". Las fallas que encontró se convirtieron en la versión 1.2. El mentor completo es público en **[inematds/mentor-nei](https://github.com/inematds/mentor-nei)** (en portugués): acervo, wiki, reglas, diario y resultados.
+
 ## Probar el propio kit
 
 ```bash
-python3 -m pytest -q tests     # → 56 passed
+python3 -m pytest -q tests     # → 70 passed
 ```
 
 ## Documentación

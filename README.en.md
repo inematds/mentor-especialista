@@ -77,7 +77,7 @@ template/                 the project each mentor receives
   └── .claude/            mentor agent · 6 skills · execution gate + settings.json
 exemplo/                  a complete mentor of a FICTIONAL expert, passing everything
 docs/                     solution plan, training, and adaptation guide
-tests/                    56 tests of the kit itself (pytest)
+tests/                    70 tests of the kit itself (pytest)
 ```
 
 ## Adapt it to your ecosystem
@@ -91,10 +91,29 @@ Everything that changes from one setup to another lives in `mentor.config.json`:
 
 Sources without an automatic collector (social media posts, PDFs, notes) come in through `coletar_arquivo.py`, from a manual export. **The kit does not call any paid API.**
 
+## Update a mentor you already created
+
+When a new kit version comes out, update your mentor without losing anything:
+
+```bash
+git pull
+python3 novo-mentor.py --atualizar ~/mentores/mentor-prof-redes
+```
+
+It replaces the scripts (`tools/`), the agent, the skills and the gate, and adds only the new keys to `mentor.config.json`. It **does not touch** `raw/`, `wiki/`, `regras.md`, `ESCOPO.md` or the saved answers. Previous versions are kept in `.mentor/backup-<date>/`.
+
+## "Stop hook error occurred"? That's the gate working
+
+When the mentor writes code and tries to finish without running it, Claude Code shows this notice. It is not a bug: the execution gate is handing the turn back with "You wrote code and didn't run it". The agent runs the code and continues.
+
+## Real pilot
+
+The kit was validated with a real expert: Nei himself, with 22 public sources and 189k words. Result: 4 of 5 criteria and a score of 8 on "I recognize the person in the rules". The flaws it found became version 1.2. The complete mentor is public at **[inematds/mentor-nei](https://github.com/inematds/mentor-nei)** (in Portuguese): archive, wiki, rules, diary and results.
+
 ## Test the kit itself
 
 ```bash
-python3 -m pytest -q tests     # → 56 passed
+python3 -m pytest -q tests     # → 70 passed
 ```
 
 ## Documentation

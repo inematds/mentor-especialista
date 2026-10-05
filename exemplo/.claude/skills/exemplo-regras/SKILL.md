@@ -24,7 +24,11 @@ Mire em 5–9 regras. Menos regras e mais fortes é melhor que muitas e fracas.
    - `banco`: só 1 fonte por enquanto (espera a 2ª).
    - `inferencia`: sem citação. O mentor avisa ao usar.
 4. **Copie o trecho do raw. Não parafraseie.** Trechos curtos, de 5 a 25 palavras.
-5. Rode e mostre a saída:
+5. **Seções do especialista:** junte os nomes de seção pedidos nas linhas `- no mentor:` que não são
+   as fixas (Pronto, Menor versão, Previsão, Saída real, Versão quebrada, Relatório) e acrescente-os a
+   `mentor.config.json` → `secoes_resposta`. Assim o loop do mentor passa a ter a cara do especialista
+   e o validador cobra essas seções. Seja econômico: 1–3 seções novas no máximo.
+6. Rode e mostre a saída:
    ```
    python3 tools/validar_citacoes.py
    ```

@@ -55,8 +55,10 @@ def test_coletar_arquivo_registra_no_manifesto(tmp_path):
 def test_legenda_vtt_vira_texto_com_tempo():
     sys.path.insert(0, str(TEMPLATE / "tools"))
     from coletar_video import legenda_para_texto
-    vtt = "WEBVTT\n\n00:00:01.000 --> 00:00:03.000\nolá <c>mundo</c>\n\n00:01:05.000 --> 00:01:07.000\nolá mundo\n\n01:02:03.000 --> 01:02:04.000\nfim\n"
-    assert legenda_para_texto(vtt) == "[00:00:01] olá mundo\n[01:02:03] fim\n"
+    vtt = ("WEBVTT\n\n00:00:01.000 --> 00:00:03.000\nolá <c>mundo</c>\n\n00:00:04.000 --> 00:00:06.000\nolá mundo\n\n"
+           "00:00:10.000 --> 00:00:12.000\ncomo vai\n\n01:02:03.000 --> 01:02:04.000\nfim\n")
+    # repetição some; linhas a menos de 30 s viram um parágrafo; marca de tempo no início de cada parágrafo
+    assert legenda_para_texto(vtt) == "[00:00:01] olá mundo como vai\n\n[01:02:03] fim\n\n"
 
 
 def test_extrator_web_ignora_script_e_nav():

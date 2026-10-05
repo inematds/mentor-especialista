@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.0 — 2026-10-05
+
+Correções vindas do piloto real (mentor do Nei: 22 fontes, 189 mil palavras, 4/5, nota 8; diário em inematds/mentor-nei).
+
+- Manifesto com trava de arquivo e escrita atômica: coleta com um subagente por fonte em paralelo não perde itens.
+- Vídeo salvo com título + ID (antes, a transcrição local virava `transcript.txt` e sobrescrevia a anterior).
+- Legenda agrupada em parágrafos de cerca de 30 s; o validador ignora `[hh:mm:ss]`, então citações que cruzam linhas são encontradas.
+- `validar_resposta.py`: perfil `--perfil revisao`; com `--transcript`, confere se a previsão veio ANTES da primeira execução, lendo também as transcrições dos subagentes.
+- O agente inclui as seções pedidas pelas regras do especialista ("no mentor:"), e `/regras` as acrescenta a `secoes_resposta`.
+- Revisão em 5 seções (Previsão → Reprodução → Correção → Lado a lado → Relatório); arquivo `<nome>.revisado.<ext>`; temporários em `.mentor/tmp/`; resposta no idioma do pedido.
+- `stats.py` diz quanto falta para cada meta.
+- `novo-mentor.py --atualizar PASTA` leva um mentor existente para a versão nova sem tocar no conteúdo.
+- README: o aviso "Stop hook error occurred" é o portão funcionando. 70 testes.
+
 ## 1.1.0 — 2026-10-05
 
 - Guia landing PT/EN/ES em `guia/` (GitHub Pages), READMEs EN/ES, capa do catálogo.

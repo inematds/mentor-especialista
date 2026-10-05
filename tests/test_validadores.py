@@ -106,7 +106,7 @@ def test_resposta_com_regra_inexistente_reprova(copia, tmp_path):
 
 def test_resposta_sem_bash_no_transcript_reprova(copia, tmp_path):
     t = tmp_path / "t.jsonl"
-    t.write_text(json.dumps({"message": {"content": [{"type": "text", "text": "funciona"}]}}) + "\n")
+    t.write_text(json.dumps({"type": "assistant", "message": {"content": [{"type": "text", "text": "funciona"}]}}) + "\n")
     r = rodar(copia / "tools" / "validar_resposta.py", copia / "testes/respostas/2026-10-05-contar-palavras.md",
               "--transcript", t, "--raiz", copia)
     assert r.returncode == 1
@@ -114,7 +114,8 @@ def test_resposta_sem_bash_no_transcript_reprova(copia, tmp_path):
 
 def test_resposta_com_bash_no_transcript_passa(copia, tmp_path):
     t = tmp_path / "t.jsonl"
-    t.write_text(json.dumps({"message": {"content": [{"type": "tool_use", "name": "Bash", "input": {"command": "python3 x.py"}}]}}) + "\n")
+    t.write_text(json.dumps({"type": "assistant", "message": {"content": [{"type": "text", "text": "Previsão: {'a': 2}"}]}}) + "\n"
+                 + json.dumps({"type": "assistant", "message": {"content": [{"type": "tool_use", "name": "Bash", "input": {"command": "python3 x.py"}}]}}) + "\n")
     r = rodar(copia / "tools" / "validar_resposta.py", copia / "testes/respostas/2026-10-05-contar-palavras.md",
               "--transcript", t, "--raiz", copia)
     assert r.returncode == 0, r.stdout

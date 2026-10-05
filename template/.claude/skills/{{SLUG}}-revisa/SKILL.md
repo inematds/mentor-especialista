@@ -5,12 +5,16 @@ description: "Revisão antes de entregar, no método de {{NOME}} — prevê onde
 
 # Revisar
 
-Passe o arquivo ao subagente **{{SLUG}}-mentor** com este pedido:
+Passe o arquivo ao subagente **{{SLUG}}-mentor** pedindo a revisão no formato de revisão dele:
+**Previsão → Reprodução → Correção → Lado a lado → Relatório**.
 
-1. **Quem recebe aceitaria isto? O que cortaria?** Liste o que não se justifica.
-2. **Onde quebra?** Preveja pelo menos 1 falha de ambiente: codificação do terminal, sistema operacional, caminho, dados reais, rede.
-3. **Reproduza** a falha prevista e mostre a saída real. Exemplo para codificação: `PYTHONIOENCODING=cp1252 python3 script.py`.
-4. **Corrija e enxugue.** Rode a versão original e a nova **lado a lado** com a mesma entrada, e mostre que a saída útil é a mesma.
-5. Feche com o Relatório: o que rodou, o que saiu, o que mudou e a regra de cada passo.
-
-Não altere o arquivo original. A versão nova vai ao lado, com sufixo `.revisado`, até o usuário aprovar.
+1. **Previsão primeiro, sem rodar nada:** quem recebe aceitaria isto? O que cortaria? Onde quebra
+   (codificação do terminal, sistema operacional, caminho, dados reais, rede)?
+2. **Reproduza** a falha prevista e mostre a saída real (ex.: codificação: `PYTHONIOENCODING=cp1252 python3 script.py`).
+3. **Corrija e enxugue** em `<nome>.revisado.<ext>` ao lado do original (o original não muda).
+4. **Lado a lado:** rode os dois com a mesma entrada e prove que a saída útil é a mesma.
+5. Salve a revisão em `testes/respostas/<data>-revisao-<nome>.md` e confira por fora:
+   ```
+   python3 tools/validar_resposta.py testes/respostas/<arquivo>.md --perfil revisao
+   ```
+Temporários em `.mentor/tmp/`.
