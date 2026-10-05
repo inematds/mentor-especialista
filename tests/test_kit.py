@@ -87,3 +87,45 @@ def test_exemplo_em_dia_com_template():
                 "tools/coletar_repo.py", "tools/coletar_arquivo.py", ".claude/hooks/portao-execucao.py",
                 ".claude/settings.json"]:
         assert (TEMPLATE / rel).read_text() == (exemplo / rel).read_text(), rel
+
+
+def test_nome_e_dominio_com_aspas_e_dois_pontos(tmp_path):
+    r = rodar(REPO / "novo-mentor.py", "esc", "--nome", 'Prof. "Aspas" \\ barra', "--dominio", "ensinar redes: do zero",
+              "--destino", tmp_path)
+    assert r.returncode == 0, r.stderr
+    alvo = tmp_path / "mentor-esc"
+    cfg = json.loads((alvo / "mentor.config.json").read_text())
+    assert cfg["especialista"] == 'Prof. "Aspas" \\ barra' and cfg["dominio"] == "ensinar redes: do zero"
+    for md in (alvo / ".claude").rglob("*.md"):
+        linhas = md.read_text().splitlines()
+        desc = next(l for l in linhas[1:6] if l.startswith("description:"))
+        valor = desc[len("description: "):]
+        assert valor.startswith('"') and valor.endswith('"'), md
+        assert json.loads(valor)  # string com aspas duplas e escapes válidos
+    assert rodar(alvo / "tools/stats.py", "--raiz", alvo).returncode == 1  # roda (reprova por manifesto vazio), sem traceback
+
+
+def test_extrator_preserva_pre_e_br():
+    sys.path.insert(0, str(TEMPLATE / "tools"))
+    from coletar_web import Extrator
+    ex = Extrator()
+    ex.feed("<p>linha1<br>linha2</p><pre><code>def f():\n    return 1\n</code></pre>")
+    t = ex.texto()
+    assert "linha1\nlinha2" in t and "def f():\n    return 1" in t
+
+
+def test_coletar_web_recusa_file(tmp_path):
+    rodar(REPO / "novo-mentor.py", "w", "--nome", "x", "--dominio", "y", "--destino", tmp_path)
+    alvo = tmp_path / "mentor-w"
+    assert rodar(alvo / "tools/coletar_web.py", "file:///etc/hostname", "--raiz", alvo).returncode == 1
+    assert not (alvo / "raw/MANIFESTO.json").exists()
+
+
+def test_nome_repetido_na_wiki_reprova(tmp_path):
+    import shutil
+    from conftest import EXEMPLO
+    copia = tmp_path / "m"
+    shutil.copytree(EXEMPLO, copia)
+    (copia / "wiki/temas/simples-vence.md").write_text("# dup\n[[blog-post-dizer-que-funciona]]\n")
+    r = rodar(copia / "tools/validar_links.py", "--raiz", copia)
+    assert r.returncode == 1 and "nome repetido" in r.stdout

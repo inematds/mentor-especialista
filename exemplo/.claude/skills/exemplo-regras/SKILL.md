@@ -1,6 +1,6 @@
 ---
 name: exemplo-regras
-description: Fase 3 — extrai da wiki as regras de conduta de Profa. Lia (personagem fictícia), cada uma com citação + localizador, e valida contra o raw. Use com "/exemplo-regras" ou "extrair as regras".
+description: "Fase 3 — extrai da wiki as regras de conduta de Profa. Lia (personagem fictícia), cada uma com citação + localizador, e valida contra o raw. Use com '/exemplo-regras' ou 'extrair as regras'."
 ---
 
 # Extrair as regras

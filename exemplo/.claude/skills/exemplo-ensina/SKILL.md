@@ -1,6 +1,6 @@
 ---
 name: exemplo-ensina
-description: Ensina algo construindo junto, no método de Profa. Lia (personagem fictícia) — chama o subagente exemplo-mentor e confere a resposta regra por regra. Use com "/exemplo-ensina <dúvida>" ou "me ensina X construindo".
+description: "Ensina algo construindo junto, no método de Profa. Lia (personagem fictícia) — chama o subagente exemplo-mentor e confere a resposta regra por regra. Use com '/exemplo-ensina <dúvida>' ou 'me ensina X construindo'."
 ---
 
 # Ensinar

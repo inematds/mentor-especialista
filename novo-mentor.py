@@ -12,6 +12,7 @@ Gera <destino>/mentor-<slug>/ com raw/, wiki/, regras.md, tools/, o agente, 6 sk
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import shutil
 import sys
@@ -19,6 +20,23 @@ from pathlib import Path
 
 TEMPLATE = Path(__file__).resolve().parent / "template"
 TEXTO = {".md", ".py", ".json", ".txt", ".gitignore", ""}
+
+
+def _trocar(texto: str, trocas: dict, escapar=lambda v: v) -> str:
+    for k, v in trocas.items():
+        texto = texto.replace(k, escapar(v))
+    return texto
+
+
+def preencher(conteudo: str, sufixo: str, trocas: dict) -> str:
+    """Substitui os placeholders escapando conforme o contexto (JSON, frontmatter YAML entre aspas)."""
+    if sufixo == ".json":
+        return _trocar(conteudo, trocas, lambda v: json.dumps(v, ensure_ascii=False)[1:-1])
+    if sufixo == ".md" and conteudo.startswith("---\n") and "\n---\n" in conteudo[4:]:
+        fim = conteudo.index("\n---\n", 4) + 5
+        yaml_escape = lambda v: v.replace("\\", "\\\\").replace('"', '\\"')  # noqa: E731
+        return _trocar(conteudo[:fim], trocas, yaml_escape) + _trocar(conteudo[fim:], trocas)
+    return _trocar(conteudo, trocas)
 
 
 def main(argv=None) -> int:
@@ -30,6 +48,9 @@ def main(argv=None) -> int:
     ap.add_argument("--forcar", action="store_true", help="sobrescreve pasta existente")
     a = ap.parse_args(argv)
 
+    if any(c in v for v in (a.nome, a.dominio) for c in "\n\r"):
+        print("--nome e --dominio devem ter uma linha só", file=sys.stderr)
+        return 2
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", a.slug):
         print("slug inválido: use letras minúsculas, números e hífen (ex.: prof-redes)", file=sys.stderr)
         return 2
@@ -53,10 +74,7 @@ def main(argv=None) -> int:
             continue
         destino.parent.mkdir(parents=True, exist_ok=True)
         if origem.suffix in TEXTO or origem.name.startswith("."):
-            conteudo = origem.read_text(encoding="utf-8")
-            for k, v in trocas.items():
-                conteudo = conteudo.replace(k, v)
-            destino.write_text(conteudo, encoding="utf-8")
+            destino.write_text(preencher(origem.read_text(encoding="utf-8"), origem.suffix, trocas), encoding="utf-8")
         else:
             shutil.copyfile(origem, destino)
         if origem.suffix == ".py":

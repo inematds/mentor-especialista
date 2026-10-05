@@ -1,6 +1,6 @@
 ---
 name: exemplo-ingere
-description: Ingestão contínua — um link, arquivo ou fala nova de Profa. Lia (personagem fictícia) entra no raw, ganha página de fonte, atualiza as páginas afetadas e pode promover regras. Use com "/exemplo-ingere <link ou arquivo>".
+description: "Ingestão contínua — um link, arquivo ou fala nova de Profa. Lia (personagem fictícia) entra no raw, ganha página de fonte, atualiza as páginas afetadas e pode promover regras. Use com '/exemplo-ingere <link ou arquivo>'."
 ---
 
 # Ingerir conteúdo novo

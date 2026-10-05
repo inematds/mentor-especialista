@@ -69,7 +69,7 @@ template/                 o projeto que cada mentor recebe
   └── .claude/            agente mentor · 6 skills · portão de execução + settings.json
 exemplo/                  um mentor completo de um especialista FICTÍCIO, passando em tudo
 docs/                     plano da solução, treinamento e guia de adaptação
-tests/                    36 testes do próprio kit (pytest)
+tests/                    56 testes do próprio kit (pytest)
 ```
 
 ## Ajuste ao seu ecossistema
@@ -86,7 +86,7 @@ Fontes sem coletor automático (posts de redes sociais, PDFs, notas) entram por 
 ## Testar o próprio kit
 
 ```bash
-python3 -m pytest -q tests     # → 36 passed
+python3 -m pytest -q tests     # → 56 passed
 ```
 
 ## Documentação

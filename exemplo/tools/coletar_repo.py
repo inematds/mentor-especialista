@@ -43,7 +43,7 @@ def coletar(url: str, raiz: Path, max_arquivos: int) -> bool:
         return True
     nome = slugificar(url.rstrip("/").split("/")[-1].removesuffix(".git"))
     with tempfile.TemporaryDirectory() as t:
-        r = subprocess.run(["git", "clone", "--depth", "1", "--quiet", url, t], capture_output=True, text=True, timeout=600)
+        r = subprocess.run(["git", "clone", "--depth", "1", "--quiet", "--", url, t], capture_output=True, text=True, timeout=600)
         if r.returncode:
             registrar_falha("repo", url, r.stderr.strip()[:200], raiz)
             print(f"FALHA {url}")

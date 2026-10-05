@@ -28,9 +28,15 @@ def main(argv=None) -> int:
     ap.add_argument("--raiz", type=Path, default=RAIZ)
     a = ap.parse_args(argv)
     wiki = a.raiz.resolve() / "wiki"
-    paginas = {p.stem: p for p in wiki.rglob("*.md")}
+    todas = sorted(wiki.rglob("*.md"))
+    paginas = {p.stem: p for p in todas}
     fontes = {p.stem for p in (wiki / "fontes").glob("*.md")}
     erros: list[str] = []
+    vistos: dict[str, Path] = {}
+    for p in todas:
+        if p.stem in vistos:
+            erros.append(f"nome repetido (links ficam ambíguos): {vistos[p.stem].relative_to(wiki)} e {p.relative_to(wiki)}")
+        vistos[p.stem] = p
 
     for nome in ("index", "hot", "log"):
         if nome not in paginas:

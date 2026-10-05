@@ -1,6 +1,6 @@
 ---
 name: {{SLUG}}-coletar
-description: Fase 1 — coleta o acervo público de {{NOME}} listado em ESCOPO.md para raw/, um subagente por fonte em paralelo, e confere as metas. Use com "/{{SLUG}}-coletar" ou "coletar o acervo".
+description: "Fase 1 — coleta o acervo público de {{NOME}} listado em ESCOPO.md para raw/, um subagente por fonte em paralelo, e confere as metas. Use com '/{{SLUG}}-coletar' ou 'coletar o acervo'."
 ---
 
 # Coletar o acervo

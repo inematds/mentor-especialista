@@ -56,7 +56,7 @@ def tentar_legenda(url: str, idiomas: str, tmp: Path, timeout: int) -> tuple[str
     arquivos = sorted(tmp.glob("*.vtt")) + sorted(tmp.glob("*.srt"))
     if not arquivos:
         return "", "sem legenda"
-    titulo = arquivos[0].name.split(".")[0]
+    titulo = re.sub(r"(\.[A-Za-z]{2,3}(-[A-Za-z0-9]+)*)?\.(vtt|srt)$", "", arquivos[0].name)
     return legenda_para_texto(arquivos[0].read_text(encoding="utf-8", errors="ignore")), titulo
 
 

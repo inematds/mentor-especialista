@@ -1,6 +1,6 @@
 ---
 name: {{SLUG}}-revisa
-description: Revisão antes de entregar, no método de {{NOME}} — prevê onde quebra, reproduz, corta o que sobra e prova que a versão enxuta faz o mesmo. Use com "/{{SLUG}}-revisa <arquivo>" ou "revisa antes de eu entregar".
+description: "Revisão antes de entregar, no método de {{NOME}} — prevê onde quebra, reproduz, corta o que sobra e prova que a versão enxuta faz o mesmo. Use com '/{{SLUG}}-revisa <arquivo>' ou 'revisa antes de eu entregar'."
 ---
 
 # Revisar

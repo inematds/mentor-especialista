@@ -1,6 +1,6 @@
 ---
 name: {{SLUG}}-ensina
-description: Ensina algo construindo junto, no método de {{NOME}} — chama o subagente {{SLUG}}-mentor e confere a resposta regra por regra. Use com "/{{SLUG}}-ensina <dúvida>" ou "me ensina X construindo".
+description: "Ensina algo construindo junto, no método de {{NOME}} — chama o subagente {{SLUG}}-mentor e confere a resposta regra por regra. Use com '/{{SLUG}}-ensina <dúvida>' ou 'me ensina X construindo'."
 ---
 
 # Ensinar

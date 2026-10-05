@@ -1,6 +1,6 @@
 ---
 name: {{SLUG}}-regras
-description: Fase 3 — extrai da wiki as regras de conduta de {{NOME}}, cada uma com citação + localizador, e valida contra o raw. Use com "/{{SLUG}}-regras" ou "extrair as regras".
+description: "Fase 3 — extrai da wiki as regras de conduta de {{NOME}}, cada uma com citação + localizador, e valida contra o raw. Use com '/{{SLUG}}-regras' ou 'extrair as regras'."
 ---
 
 # Extrair as regras

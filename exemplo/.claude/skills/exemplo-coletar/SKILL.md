@@ -1,6 +1,6 @@
 ---
 name: exemplo-coletar
-description: Fase 1 — coleta o acervo público de Profa. Lia (personagem fictícia) listado em ESCOPO.md para raw/, um subagente por fonte em paralelo, e confere as metas. Use com "/exemplo-coletar" ou "coletar o acervo".
+description: "Fase 1 — coleta o acervo público de Profa. Lia (personagem fictícia) listado em ESCOPO.md para raw/, um subagente por fonte em paralelo, e confere as metas. Use com '/exemplo-coletar' ou 'coletar o acervo'."
 ---
 
 # Coletar o acervo

@@ -84,3 +84,59 @@ def test_entrada_invalida_nao_derruba(hook):
     from conftest import HOOK
     r = subprocess.run([sys.executable, str(HOOK)], input="isto não é json", capture_output=True, text=True)
     assert r.returncode == 0
+
+
+# --- regressões apontadas na verificação 1.0.0 ---
+import pytest  # noqa: E402
+
+
+@pytest.mark.parametrize("cmd", [
+    'git commit -m "fix calc.py"', "rm calc.py", "chmod +x calc.py", "ruff check calc.py",
+    "python3 -m py_compile calc.py", 'echo "calc.py" > log.txt', "cd . && cat calc.py",
+    "pip install pytest", "git add calc.py", "cat calc.py | python3",
+])
+def test_comandos_que_nao_executam(hook, cmd):
+    editar(hook, "calc.py")
+    bash(hook, cmd)
+    assert parar(hook)["decision"] == "block", cmd
+
+
+def test_bash_n_nao_executa(hook):
+    editar(hook, "x.sh")
+    bash(hook, "bash -n x.sh")
+    assert parar(hook)["decision"] == "block"
+
+
+def test_mesmo_nome_em_pastas_diferentes(hook):
+    editar(hook, "a/calc.py")
+    editar(hook, "b/calc.py")
+    bash(hook, "python3 a/calc.py")
+    r = parar(hook)
+    assert r and r["reason"].count("calc.py") == 1
+
+
+def test_cd_e_depois_roda(hook):
+    editar(hook, "tools/calc.py")
+    bash(hook, "cd tools && python3 calc.py")
+    assert parar(hook) is None
+
+
+def test_npm_test_limpa_tsx(hook):
+    editar(hook, "src/App.tsx")
+    bash(hook, "npm test")
+    assert parar(hook) is None
+
+
+def test_variavel_de_ambiente_antes(hook):
+    editar(hook, "calc.py")
+    bash(hook, "PYTHONIOENCODING=cp1252 python3 calc.py")
+    assert parar(hook) is None
+
+
+def test_avisado_nao_bloqueia_de_novo_ate_reeditar(hook):
+    editar(hook, "calc.py")
+    assert parar(hook)["decision"] == "block"
+    assert parar(hook, ativo=True) is None
+    assert parar(hook) is None  # turno seguinte: já avisado
+    editar(hook, "calc.py")
+    assert parar(hook)["decision"] == "block"  # reeditou → volta a cobrar

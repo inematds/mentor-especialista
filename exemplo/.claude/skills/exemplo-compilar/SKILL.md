@@ -1,6 +1,6 @@
 ---
 name: exemplo-compilar
-description: Fase 2 — compila raw/ numa wiki interligada (fontes, temas, princípios, métodos, index, hot, log) sem tocar no raw. Use com "/exemplo-compilar" ou "montar a wiki".
+description: "Fase 2 — compila raw/ numa wiki interligada (fontes, temas, princípios, métodos, index, hot, log) sem tocar no raw. Use com '/exemplo-compilar' ou 'montar a wiki'."
 ---
 
 # Compilar a wiki
