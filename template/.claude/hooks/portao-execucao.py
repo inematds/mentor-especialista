@@ -6,8 +6,17 @@ Um script só, registrado em 3 eventos no .claude/settings.json do projeto:
   PostToolUse (Bash)                 → limpa os sujos que o comando realmente executa
   Stop / SubagentStop                → bloqueia enquanto houver sujo ainda não avisado
 
+E um 2º portão, de PREVISÃO (kit 1.3):
+  PreToolUse (Bash)                  → comando que executa código só passa se, no turno atual, o assistente
+                                       já escreveu um texto com "Previsão" (o que espera ver). Ler/listar,
+                                       scripts do kit (tools/) e --version/--help passam sempre.
+  Motivo: no piloto, instruir "preveja antes de rodar" não mudou o comportamento em 3 rodadas — o modelo
+  previa só no raciocínio. Instrução não basta; precisa de mecanismo.
+  Se o comando vem de um subagente (agent_id), lê <sessão>/subagents/agent-<id>.jsonl; senão, transcript_path.
+  Desligar: mentor.config.json → "portao": {"previsao": false}. Sem transcrição legível → deixa passar.
+
 Estado por sessão em .mentor/estado/<session_id>.json (fora do git; estados com mais de 7 dias são apagados).
-Não lê o transcript (o formato dele pode mudar entre versões).
+O portão de execução não lê o transcript; o de previsão lê (só os textos do assistente no turno).
 Anti-loop: com stop_hook_active=true sai 0 e marca os sujos como "avisados" — o mesmo arquivo
 só volta a bloquear se for editado de novo. No máximo 1 bloqueio por arquivo editado.
 Qualquer erro interno → exit 0 (o portão nunca derruba a sessão).
@@ -37,6 +46,11 @@ PADRAO = {
 # extensões que usam os executores de outra
 FAMILIA = {".mjs": ".js", ".cjs": ".js", ".jsx": ".js", ".tsx": ".ts"}
 EDICAO = {"Write", "Edit", "MultiEdit"}
+# portão de previsão: o que conta como EXECUTAR código (1ª palavra de um segmento)
+INTERPRETADORES = {"python", "python3", "node", "bash", "sh", "zsh", "deno", "bun", "ruby", "perl", "php",
+                   "go", "cargo", "java", "npx", "pytest", "uv", "poetry"}
+KIT = re.compile(r"^(\S*/)?tools/(stats|validar_\w+|coletar_\w+)\.py\b")
+VERSAO = re.compile(r"\s--?(version|help|V|h)\s*$")
 # primeiro comando de um segmento que NÃO executa o arquivo citado
 NAO_EXECUTA = {
     "cat", "less", "more", "head", "tail", "ls", "wc", "grep", "rg", "sed", "awk", "rm", "mv", "cp", "chmod",
@@ -134,6 +148,63 @@ def executa(cmd: str, sujo: str, base: Path, cfg: dict) -> bool:
     return False
 
 
+def _sem_aspas(cmd: str) -> str:
+    return re.sub(r'"(\\.|[^"\\])*"|\'[^\']*\'', "''", cmd)
+
+
+def executa_codigo(cmd: str) -> bool:
+    """O comando roda código (interpretador, ./script, executor de testes)? Ler, listar, git e o kit não contam."""
+    for seg in SEPARADOR.split(_sem_aspas(cmd)):
+        t = tokens(seg)
+        if not t or t[0] == "cd" or SO_CHECA.search(seg) or VERSAO.search(seg):
+            continue
+        prog = Path(t[0]).name
+        if prog in ("python", "python3") and len(t) > 1 and KIT.match(t[1]):
+            continue
+        if prog in INTERPRETADORES or t[0].startswith("./") or (prog in ("npm", "yarn", "pnpm") and "test" in t[1:2]):
+            return True
+    return False
+
+
+def transcricao_de(evento: dict) -> Path | None:
+    tp = evento.get("transcript_path")
+    if not tp:
+        return None
+    tp = Path(tp)
+    if evento.get("agent_id"):
+        sub = tp.parent / evento.get("session_id", tp.stem) / "subagents" / f"agent-{evento['agent_id']}.jsonl"
+        return sub if sub.exists() else None
+    return tp
+
+
+def previu_no_turno(transcricao: Path) -> bool | None:
+    """True se, desde a última mensagem humana, o assistente escreveu 'previs…'. None se não deu para ler."""
+    try:
+        linhas = transcricao.read_text(encoding="utf-8", errors="ignore").splitlines()
+    except OSError:
+        return None
+    viu = False
+    for linha in linhas:
+        try:
+            ev = json.loads(linha)
+        except ValueError:
+            continue
+        msg = ev.get("message") or {}
+        papel = ev.get("type") or msg.get("role")
+        conteudo = msg.get("content")
+        if papel == "user":
+            humano = isinstance(conteudo, str) or (isinstance(conteudo, list) and any(
+                isinstance(c, dict) and c.get("type") == "text" for c in conteudo) and not any(
+                isinstance(c, dict) and c.get("type") == "tool_result" for c in conteudo))
+            if humano:
+                viu = False
+        elif papel == "assistant" and isinstance(conteudo, list):
+            if any(isinstance(c, dict) and c.get("type") == "text" and re.search(r"previs", c.get("text", ""), re.I)
+                   for c in conteudo):
+                viu = True
+    return viu
+
+
 def main() -> int:
     evento = json.load(sys.stdin)
     raiz = Path(os.environ.get("CLAUDE_PROJECT_DIR") or evento.get("cwd") or ".").resolve()
@@ -143,6 +214,21 @@ def main() -> int:
     nome_evento = evento.get("hook_event_name", "")
     ferramenta = evento.get("tool_name", "")
     entrada = evento.get("tool_input") or {}
+
+    if nome_evento == "PreToolUse" and ferramenta == "Bash":
+        if not cfg.get("previsao", True) or not executa_codigo(entrada.get("command", "")):
+            return 0
+        tr = transcricao_de(evento)
+        if tr is None or previu_no_turno(tr) is not False:
+            return 0
+        print(json.dumps({"hookSpecificOutput": {
+            "hookEventName": "PreToolUse",
+            "permissionDecision": "deny",
+            "permissionDecisionReason": ("Portão de previsão: antes de executar código, escreva na conversa uma linha "
+                                         "'Previsão: …' com o que você espera ver (valor, saída ou erro). Depois rode "
+                                         "e compare. Ler/listar arquivos não precisa de previsão."),
+        }}))
+        return 0
 
     if nome_evento == "PostToolUse" and ferramenta in EDICAO:
         caminho = entrada.get("file_path", "")

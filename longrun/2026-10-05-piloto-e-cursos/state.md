@@ -1,5 +1,5 @@
 # State
 
-- Piloto FECHADO: 4/5, nota 8 (mentor-nei d84ff31). Repetir só teste 2 depois do kit 1.2.
-- Agora: kit 1.2 — 8 correções do diário (lista no fim de ~/projetos/mentor-nei/PILOTO-DIARIO.md) + `novo-mentor.py --atualizar`.
-- Depois: curso v2, curso v6.
+- FEITO: piloto; kit 1.2.0; mentor-nei público; curso v2 publicado (repo 93bd381, portal 25ccf75, buscas bf645f6, pro 9aab0c7, id 313).
+- AGORA (kit 1.3): portão de previsão (PreToolUse; subagente vem com agent_id → ler <sessão>/subagents/agent-<id>.jsonl), validar_links ida-e-volta, ADAPTAR.md caminho relativo. Depois repetir teste 2 no mentor-nei.
+- v6: aguarda o usuário rodar /formato-curso-v6.

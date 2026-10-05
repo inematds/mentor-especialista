@@ -77,7 +77,7 @@ template/                 the project each mentor receives
   └── .claude/            mentor agent · 6 skills · execution gate + settings.json
 exemplo/                  a complete mentor of a FICTIONAL expert, passing everything
 docs/                     solution plan, training, and adaptation guide
-tests/                    70 tests of the kit itself (pytest)
+tests/                    81 tests of the kit itself (pytest)
 ```
 
 ## Adapt it to your ecosystem
@@ -108,12 +108,12 @@ When the mentor writes code and tries to finish without running it, Claude Code 
 
 ## Real pilot
 
-The kit was validated with a real expert: Nei himself, with 22 public sources and 189k words. Result: 4 of 5 criteria and a score of 8 on "I recognize the person in the rules". The flaws it found became version 1.2. The complete mentor is public at **[inematds/mentor-nei](https://github.com/inematds/mentor-nei)** (in Portuguese): archive, wiki, rules, diary and results.
+The kit was validated with a real expert: Nei himself, with 22 public sources and 189k words. Result: **5 of 5** criteria and a score of 8 on "I recognize the person in the rules". The flaws it found became versions 1.2 and 1.3; the last one, the mentor running before predicting, was only solved by a mechanism (the prediction gate), not by instructions. The complete mentor is public at **[inematds/mentor-nei](https://github.com/inematds/mentor-nei)** (in Portuguese): archive, wiki, rules, diary and results.
 
 ## Test the kit itself
 
 ```bash
-python3 -m pytest -q tests     # → 70 passed
+python3 -m pytest -q tests     # → 81 passed
 ```
 
 ## Documentation

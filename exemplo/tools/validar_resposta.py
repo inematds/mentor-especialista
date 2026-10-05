@@ -36,8 +36,23 @@ def eventos(transcript: Path) -> list[tuple[str, str]]:
     subagentes que aparecem no stream da sessão principal (parent_tool_use_id) ficam de fora:
     cada subagente é avaliado pela própria transcrição.
     """
+    linhas = transcript.read_text(encoding="utf-8", errors="ignore").splitlines()
+    # comandos que um hook NEGOU (ex.: portão de previsão) não rodaram: não contam como execução
+    negados = set()
+    for linha in linhas:
+        if "tool_result" not in linha:
+            continue
+        try:
+            ev = json.loads(linha)
+        except json.JSONDecodeError:
+            continue
+        for c in (ev.get("message") or {}).get("content") or []:
+            if isinstance(c, dict) and c.get("type") == "tool_result":
+                txt = json.dumps(c.get("content"), ensure_ascii=False)
+                if c.get("is_error") and re.search(r"Portão de previsão|hook.*(denied|negad|blocked)|denied by", txt, re.I):
+                    negados.add(c.get("tool_use_id"))
     out = []
-    for linha in transcript.read_text(encoding="utf-8", errors="ignore").splitlines():
+    for linha in linhas:
         try:
             ev = json.loads(linha)
         except json.JSONDecodeError:
@@ -53,7 +68,7 @@ def eventos(transcript: Path) -> list[tuple[str, str]]:
                 continue
             if c.get("type") == "text":
                 out.append(("T", c.get("text", "")))
-            elif c.get("type") == "tool_use" and c.get("name") == "Bash":
+            elif c.get("type") == "tool_use" and c.get("name") == "Bash" and c.get("id") not in negados:
                 out.append(("B", (c.get("input") or {}).get("command", "")))
     return out
 

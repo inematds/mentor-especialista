@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 — 2026-10-05
+
+Fecha o piloto em **5/5**.
+
+- **Portão de previsão** (PreToolUse em Bash): comando que executa código só passa se o assistente já escreveu "Previsão: …" no turno; ler/listar, scripts do kit e `--version` passam. Num subagente, lê a transcrição dele (`<sessão>/subagents/agent-<id>.jsonl`). Desligável em `portao.previsao`. Resolveu o teste 2 do piloto, que falhou com instrução em 2 rodadas.
+- `validar_resposta.py` ignora comandos negados por hook (a tentativa bloqueada não rodou).
+- `validar_links.py` exige ida e volta entre fonte e conceito (achou 3 ligações de mão única no mentor-nei).
+- `docs/ADAPTAR.md`: o agente lê o núcleo por caminho relativo; como montar um conselho sem perder as regras.
+- 81 testes.
+
 ## 1.2.0 — 2026-10-05
 
 Correções vindas do piloto real (mentor do Nei: 22 fontes, 189 mil palavras, 4/5, nota 8; diário em inematds/mentor-nei).
@@ -14,7 +24,7 @@ Correções vindas do piloto real (mentor do Nei: 22 fontes, 189 mil palavras, 4
 - `novo-mentor.py --atualizar PASTA` leva um mentor existente para a versão nova sem tocar no conteúdo.
 - README: o aviso "Stop hook error occurred" é o portão funcionando. 70 testes.
 
-**Limitação conhecida (vai para a 1.3):** mesmo instruído a escrever `Previsão:` antes de executar, o mentor tende a prever só no raciocínio e escrever depois. O `validar_resposta --transcript` detecta isso (reprovou as rodadas 2 e 3 do teste 2 do piloto); a correção prevista é um portão de previsão (PreToolUse em Bash).
+**Limitação conhecida (resolvida na 1.3):** mesmo instruído a escrever `Previsão:` antes de executar, o mentor tende a prever só no raciocínio e escrever depois. O `validar_resposta --transcript` detecta isso (reprovou as rodadas 2 e 3 do teste 2 do piloto); a correção prevista é um portão de previsão (PreToolUse em Bash).
 
 ## 1.1.0 — 2026-10-05
 

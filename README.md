@@ -77,7 +77,7 @@ template/                 o projeto que cada mentor recebe
   └── .claude/            agente mentor · 6 skills · portão de execução + settings.json
 exemplo/                  um mentor completo de um especialista FICTÍCIO, passando em tudo
 docs/                     plano da solução, treinamento e guia de adaptação
-tests/                    70 testes do próprio kit (pytest)
+tests/                    81 testes do próprio kit (pytest)
 ```
 
 ## Ajuste ao seu ecossistema
@@ -108,12 +108,12 @@ Quando o mentor escreve código e tenta terminar sem rodar, o Claude Code mostra
 
 ## Piloto real
 
-O kit foi validado com um especialista de verdade: o próprio Nei, com 22 fontes públicas e 189 mil palavras. Resultado: 4 de 5 critérios e nota 8 em "reconheço a pessoa nas regras". As falhas que ele encontrou viraram a versão 1.2. O mentor completo é público em **[inematds/mentor-nei](https://github.com/inematds/mentor-nei)**: acervo, wiki, regras, diário e resultados.
+O kit foi validado com um especialista de verdade: o próprio Nei, com 22 fontes públicas e 189 mil palavras. Resultado: **5 de 5** critérios e nota 8 em "reconheço a pessoa nas regras". As falhas que ele encontrou viraram as versões 1.2 e 1.3; a última delas, o mentor rodar antes de prever, só foi resolvida com um mecanismo (o portão de previsão), não com instrução. O mentor completo é público em **[inematds/mentor-nei](https://github.com/inematds/mentor-nei)**: acervo, wiki, regras, diário e resultados.
 
 ## Testar o próprio kit
 
 ```bash
-python3 -m pytest -q tests     # → 70 passed
+python3 -m pytest -q tests     # → 81 passed
 ```
 
 ## Documentação

@@ -72,4 +72,15 @@ O núcleo (`raw/`, `wiki/`, `regras.md`, `tools/`) é independente de agente. Pa
 
 ## 6. Vários mentores (conselho)
 
-Gere um mentor por especialista (`novo-mentor.py` várias vezes). Num projeto seu, junte os agentes em `.claude/agents/` e peça: "consulte o mentor A e o mentor B e compare". Cada um continua preso às próprias regras e citações.
+**Atenção ao caminho.** O agente lê `regras.md`, `wiki/hot.md` e `wiki/index.md` por caminho **relativo à pasta do mentor**. Copiar só o `.claude/agents/<slug>-mentor.md` para outro projeto deixa o mentor sem o núcleo dele: ele responde no genérico e as citações quebram.
+
+Duas formas que funcionam:
+
+1. **Rodar cada mentor na pasta dele.** O seu projeto chama o mentor com `claude -p "/<slug>-ensina …"` executado em `~/mentores/mentor-<slug>`.
+2. **Agente local que aponta para a pasta.** No seu projeto, crie `.claude/agents/<slug>-mentor.md` com o mesmo texto do original e, no começo, diga onde está o núcleo:
+   ```
+   O núcleo deste mentor está em ~/mentores/mentor-<slug>/: leia regras.md, wiki/hot.md e wiki/index.md
+   de lá, e só as páginas de wiki/ que precisar. Nunca invente regra que não esteja nesse regras.md.
+   ```
+
+Depois disso, no seu projeto: "consulte o mentor A e o mentor B e compare". Cada um continua preso às próprias regras e citações.

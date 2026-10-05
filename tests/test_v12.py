@@ -186,3 +186,13 @@ def test_eventos_de_subagente_no_stream_principal_sao_ignorados(tmp_path):
     t = _sessao(tmp_path, [_evt("B", "python3 x.py", parent_tool_use_id="toolu_1"), _evt("T", "Previsão: 3"),
                            _evt("B", "python3 x.py")])
     assert _previu(t) is True
+
+
+def test_comando_negado_pelo_portao_nao_conta_como_execucao(tmp_path):
+    neg = json.dumps({"type": "user", "message": {"role": "user", "content": [
+        {"type": "tool_result", "tool_use_id": "t1", "is_error": True,
+         "content": "PreToolUse:Bash hook error: Portão de previsão: antes de executar código, escreva…"}]}})
+    tu = json.dumps({"type": "assistant", "message": {"role": "assistant", "content": [
+        {"type": "tool_use", "id": "t1", "name": "Bash", "input": {"command": "python3 s.py"}}]}})
+    sub = [tu, neg, _evt("T", "Previsão: UnicodeEncodeError"), _evt("B", "python3 s.py")]
+    assert _previu(_sessao(tmp_path, [], [sub])) is True

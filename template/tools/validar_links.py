@@ -6,6 +6,7 @@ Regras checadas:
   - toda página de wiki/fontes/ tem ≥1 link de saída
   - toda página de wiki/principios/ liga pelo menos uma página de fontes/
   - nº de páginas em wiki/fontes/ = nº de itens do manifesto
+  - ida e volta: fonte → conceito (tema/princípio/método) exige conceito → fonte, e vice-versa
   - index.md, hot.md e log.md existem
 
 Uso: python3 tools/validar_links.py [--raiz DIR]
@@ -53,6 +54,18 @@ def main(argv=None) -> int:
             erros.append(f"fonte sem link de saída: {p.relative_to(wiki)}")
         if p.parent.name == "principios" and not any(Path(x).name in fontes for x in alvos):
             erros.append(f"princípio sem fonte: {p.relative_to(wiki)}")
+
+    # ida e volta entre fontes e conceitos (achado no piloto: 3 ligações de mão única passavam)
+    conceitos = {p.stem for p in paginas.values() if p.parent.name in ("temas", "principios", "metodos")}
+    saida = {stem: {Path(x.strip()).name for x in LINK.findall(p.read_text(encoding="utf-8"))} for stem, p in paginas.items()}
+    for f in sorted(fontes):
+        for c in sorted(saida[f] & conceitos):
+            if f not in saida[c]:
+                erros.append(f"mão única: fontes/{f} → {c}, mas {c} não liga de volta")
+    for c in sorted(conceitos):
+        for f in sorted(saida[c] & fontes):
+            if c not in saida[f]:
+                erros.append(f"mão única: {c} → fontes/{f}, mas a fonte não liga de volta")
 
     n_manifesto = len(ler_manifesto(a.raiz.resolve()))
     if len(fontes) != n_manifesto:

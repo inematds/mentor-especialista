@@ -119,3 +119,11 @@ def test_resposta_com_bash_no_transcript_passa(copia, tmp_path):
     r = rodar(copia / "tools" / "validar_resposta.py", copia / "testes/respostas/2026-10-05-contar-palavras.md",
               "--transcript", t, "--raiz", copia)
     assert r.returncode == 0, r.stdout
+
+
+def test_link_de_mao_unica_reprova(copia):
+    # o conceito passa a citar uma fonte que não cita o conceito de volta
+    (copia / "wiki" / "temas" / "estruturas-de-dados.md").write_text(
+        "# Estruturas\n\n[[video-aula-01-lista-ligada]] [[blog-post-dizer-que-funciona]]\n")
+    r = rodar(copia / "tools" / "validar_links.py", "--raiz", copia)
+    assert r.returncode == 1 and "mão única" in r.stdout and "blog-post-dizer-que-funciona" in r.stdout
