@@ -8,7 +8,7 @@ description: "Revisão antes de entregar, no método de Profa. Lia (personagem f
 Passe o arquivo ao subagente **exemplo-mentor** pedindo a revisão no formato de revisão dele:
 **Previsão → Reprodução → Correção → Lado a lado → Relatório**.
 
-1. **Previsão primeiro, sem rodar nada:** quem recebe aceitaria isto? O que cortaria? Onde quebra
+1. **Previsão primeiro, sem rodar nada** — escrita na conversa como `Previsão: …` antes do primeiro comando que executa código: quem recebe aceitaria isto? O que cortaria? Onde quebra
    (codificação do terminal, sistema operacional, caminho, dados reais, rede)?
 2. **Reproduza** a falha prevista e mostre a saída real (ex.: codificação: `PYTHONIOENCODING=cp1252 python3 script.py`).
 3. **Corrija e enxugue** em `<nome>.revisado.<ext>` ao lado do original (o original não muda).

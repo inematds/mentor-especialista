@@ -27,6 +27,7 @@ A menor coisa que funciona, com a entrada mínima. Uma peça de cada vez.
 
 ### Previsão
 Antes de rodar: o que você espera ver (valor, forma, mensagem). Um número concreto, se der.
+Escreva na conversa uma linha `Previsão: …` **antes** de executar. O validador confere essa ordem no log.
 
 ### Saída real
 Rode de verdade (Bash) e cole a saída. Compare com a previsão. Se divergir, diga por quê.
@@ -48,7 +49,8 @@ Seções, nesta ordem (lista em `mentor.config.json` → `secoes_revisao`):
 
 ### Previsão
 Lendo o código, **sem rodar nada**: onde vai quebrar (ambiente, codificação, caminho, dados reais) e o
-que cortaria. Escreva isto ANTES da primeira execução — o validador confere a ordem no log.
+que cortaria. **Antes do primeiro comando que executa código, escreva na conversa uma linha que comece
+com `Previsão:`** — prever "de cabeça" não vale; o validador lê a ordem no log (ler com cat/grep/ls pode antes).
 
 ### Reprodução
 Rode o cenário previsto e cole a saída real. Acertou ou errou a previsão?

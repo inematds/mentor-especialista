@@ -14,6 +14,8 @@ Correções vindas do piloto real (mentor do Nei: 22 fontes, 189 mil palavras, 4
 - `novo-mentor.py --atualizar PASTA` leva um mentor existente para a versão nova sem tocar no conteúdo.
 - README: o aviso "Stop hook error occurred" é o portão funcionando. 70 testes.
 
+**Limitação conhecida (vai para a 1.3):** mesmo instruído a escrever `Previsão:` antes de executar, o mentor tende a prever só no raciocínio e escrever depois. O `validar_resposta --transcript` detecta isso (reprovou as rodadas 2 e 3 do teste 2 do piloto); a correção prevista é um portão de previsão (PreToolUse em Bash).
+
 ## 1.1.0 — 2026-10-05
 
 - Guia landing PT/EN/ES em `guia/` (GitHub Pages), READMEs EN/ES, capa do catálogo.
