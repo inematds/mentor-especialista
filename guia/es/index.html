@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mentor-Especialista — el método de un experto convertido en tu mentor en Claude Code</title>
+<meta name="description" content="Kit abierto para convertir el método de un experto en un mentor dentro de Claude Code: acervo, wiki, reglas con cita, agente, skills y compuerta de ejecución.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/mentor-especialista/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/mentor-especialista/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/mentor-especialista/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🧭</span> Mentor-Especialista</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">Qué es</a>
+    <a class="sec" href="#fluxo">Cómo funciona</a>
+    <a class="sec" href="#guia">Guía de uso</a>
+    <a class="sec" href="#exemplos">Ejemplos</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <span class="lang"><a href="../">PT</a><a href="../en/">EN</a><a class="on" href="./">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/mentor-especialista" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Kit abierto para Claude Code</span>
+      <h1>El método de un experto convertido en tu <span class="amb">mentor</span></h1>
+      <p class="lead">Enseña construyendo, revisa antes de entregar y solo dice "funciona" después de ejecutar. Cada regla apunta a un fragmento real de lo que el experto publicó.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Empezar la guía</a>
+        <a class="btn ghost" href="https://github.com/inematds/mentor-especialista" target="_blank" rel="noopener">Ver en GitHub</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-es.jpg" alt="Banner de Mentor-Especialista: el método de un experto convertido en tu mentor en Claude Code"></figure>
+  </div>
+</header>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">Qué es</span>
+  <h2>Un mentor que copia el método, no a la persona</h2>
+  <p class="sub">Cuando le pides a una IA que te explique algo, suele explicar de más, parecer segura sin estarlo, suponer cosas sin avisar y responder en genérico. Este kit arma un mentor que enseña a la manera de alguien que admiras, con prueba para cada paso.</p>
+  <figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="../assets/banner-grade-es.jpg" alt="Las seis piezas del kit: acervo, wiki, reglas con prueba, agente mentor, compuerta de ejecución e ingesta continua" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="grid g3">
+    <div class="card"><h3>📚 Conocimiento real, organizado</h3><p>Todo lo que el experto publicó (videos, textos, repositorios, posts) se convierte en una wiki interconectada que la IA consulta sin perderse en el pajar.</p></div>
+    <div class="card"><h3>🔎 Reglas con prueba</h3><p>Cada regla de conducta lleva un fragmento copiado del acervo y el lugar exacto de donde salió. Un script rechaza la cita inventada.</p></div>
+    <div class="card"><h3>▶️ Solo habla después de ejecutar</h3><p>El mentor sigue un paso a paso fijo, y una compuerta automática no deja terminar el turno si se escribió código y no se ejecutó.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Cómo funciona</span>
+  <h2>Seis capas, cada una con prueba de terminado</h2>
+  <p class="sub">Cada fase tiene un comando que responde "¿terminó?" con exit 0 o con el motivo de la reprobación. Nada depende de que la IA diga que acabó.</p>
+  <div class="flow">
+    <span>Acervo en bruto</span><span class="arr">→</span>
+    <span>Wiki compilada</span><span class="arr">→</span>
+    <span>Reglas con cita</span><span class="arr">→</span>
+    <span>Agente + skills</span><span class="arr">→</span>
+    <span>Compuerta de ejecución</span><span class="arr">→</span>
+    <span>Ingesta continua</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><div class="num">1</div><h3>Acervo y wiki</h3><p><code>raw/</code> es de solo lectura, con manifiesto y hash de cada ítem. La wiki tiene páginas de fuentes, temas, principios y métodos, además de <code>index</code>, <code>hot</code> y <code>log</code>.</p></div>
+    <div class="card"><div class="num">2</div><h3>Reglas</h3><p><b>activa</b> exige 2 fuentes distintas; <b>banco</b> espera la 2.ª; <b>inferencia</b> se le avisa al usuario. La comparación ignora mayúsculas, acentos y puntuación.</p></div>
+    <div class="card"><div class="num">3</div><h3>El loop del mentor</h3><p>Listo → Versión mínima → Predicción → Salida real → Versión rota → Informe con la regla que guio cada paso.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Requisitos previos</span>
+  <h2>Lo que necesitas</h2>
+  <p class="sub">Los scripts usan solo la biblioteca estándar de Python. Nada de API de pago.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Python 3.10+ y git</h3><p>Para el generador, los recolectores y los validadores.</p><pre><span class="k">python3</span> --version
+<span class="k">git</span> --version</pre></div>
+    <div class="card"><h3>Claude Code</h3><p>Donde corren el agente, las skills y la compuerta.</p><pre><span class="k">claude</span> --version</pre></div>
+    <div class="card"><h3>Opcionales</h3><p><code>yt-dlp</code> para subtítulos de video y un transcriptor local (Whisper, faster-whisper…) para videos sin subtítulos. <code>pytest</code> solo para probar el kit.</p><pre><span class="k">yt-dlp</span> --version</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guía de uso · paso a paso</span>
+  <h2>De cero a tu primer mentor</h2>
+  <p class="sub">Comandos reales del kit. Cambia <code>prof-redes</code> por el nombre corto de tu mentor.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Descarga el kit y ve el ejemplo funcionando</h3>
+    <p>El ejemplo es una experta ficticia con 3 fuentes y 7 reglas, que pasa todos los validadores.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/mentor-especialista.git</span>
+<span class="k">cd</span> mentor-especialista
+<span class="k">python3</span> exemplo/tools/stats.py --raiz exemplo
+<span class="k">python3</span> exemplo/tools/validar_citacoes.py --raiz exemplo</pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Crea tu mentor</h3>
+    <p>Genera la carpeta con el acervo, la wiki, las reglas, los scripts, el agente, las 6 skills y la compuerta de ejecución.</p>
+<pre><span class="k">python3</span> novo-mentor.py prof-redes \
+  --nome <span class="s">"Nombre del experto"</span> \
+  --dominio <span class="s">"enseñar redes neuronales construyendo desde cero"</span> \
+  --destino ~/mentores</pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Define el alcance y ajusta a tu entorno</h3>
+    <p>En <code>ESCOPO.md</code> van las fuentes. En <code>mentor.config.json</code> van las metas de recolección, los idiomas de subtítulos y tu transcriptor (ver docs/ADAPTAR.md (en portugués)).</p>
+<pre><span class="k">cd</span> ~/mentores/mentor-prof-redes
+<span class="c"># en mentor.config.json, por ejemplo:</span>
+<span class="s">"transcrever_cmd"</span>: <span class="s">"seu-transcritor --url {url} --out {saida}"</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Recolecta el acervo</h3>
+    <p>En Claude Code, dentro de la carpeta del mentor. Un subagente por fuente, en paralelo. Lo que falle va a <code>raw/RELATORIO-FALHAS.md</code>.</p>
+<pre><span class="k">/prof-redes-coletar</span>
+<span class="c"># listo cuando:</span>
+<span class="k">python3</span> tools/stats.py   <span class="c"># → exit 0 (metas cumplidas, raw intacto)</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Compila la wiki y extrae las reglas</h3>
+    <p>La wiki enlaza fuentes, temas, principios y métodos en ambos sentidos. Las reglas salen con un fragmento copiado del acervo.</p>
+<pre><span class="k">/prof-redes-compilar</span>
+<span class="k">python3</span> tools/validar_links.py     <span class="c"># → 0 enlaces rotos</span>
+<span class="k">/prof-redes-regras</span>
+<span class="k">python3</span> tools/validar_citacoes.py  <span class="c"># → 0 faltantes</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Aprende y revisa con el mentor</h3>
+    <p><code>ensina</code> construye contigo y verifica la respuesta por fuera. <code>revisa</code> predice dónde se rompe, lo reproduce y prueba la versión depurada lado a lado.</p>
+<pre><span class="k">/prof-redes-ensina</span> enséñame a hacer un tokenizador BPE desde cero
+<span class="k">/prof-redes-revisa</span> scripts/coleta.py
+<span class="k">python3</span> tools/validar_resposta.py testes/respostas/&lt;arquivo&gt;.md</pre>
+  </div></div>
+
+  <div class="step"><div class="b">7</div><div>
+    <h3>Haz que el mentor aprenda algo nuevo</h3>
+    <p>Un enlace nuevo se convierte en página de fuente, actualiza las páginas afectadas y puede promover una regla de banco a activa.</p>
+<pre><span class="k">/prof-redes-ingere</span> <span class="s">https://exemplo.com/post-novo</span>
+<span class="k">python3</span> tools/stats.py &amp;&amp; <span class="k">python3</span> tools/validar_links.py &amp;&amp; <span class="k">python3</span> tools/validar_citacoes.py</pre>
+  </div></div>
+
+  <div class="step"><div class="b">8</div><div>
+    <h3>Ejecuta las 3 pruebas de aceptación</h3>
+    <p>Construir y enseñar; revisar un script que "funciona" pero se rompe sin UTF-8; ingerir una fuente nueva. Los resultados van en <code>testes/aceitacao/RESULTADOS.md</code>.</p>
+<pre><span class="k">PYTHONIOENCODING</span>=cp1252 <span class="k">python3</span> testes/aceitacao/script_emoji.py
+<span class="c"># → UnicodeEncodeError: el mentor debe preverlo antes de ejecutar</span></pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">Ejemplos</span>
+  <h2>Lo que ves en pantalla</h2>
+  <p class="sub">Salidas reales del ejemplo que viene en el kit, y la compuerta en acción. Salidas mostradas tal como las imprime el kit (en portugués).</p>
+  <div class="ex">
+    <div class="card"><h3>Acervo dentro de las metas</h3>
+<pre>tipo          itens   palavras   meta
+blog              1        123   ≥1 itens / ≥100 pal.
+posts             1         73   ≥1 itens / ≥50 pal.
+video             1        145   ≥1 itens / ≥100 pal.
+TOTAL             3        341
+
+OK: acervo dentro das metas</pre></div>
+    <div class="card"><h3>Citas verificadas</h3>
+<pre>7 regras (4 ativas), 12 citações encontradas, 0 faltando
+OK
+
+<span class="c"># con una cita inventada:</span>
+7 regras (4 ativas), 11 citações encontradas, 1 faltando
+REPROVADO</pre></div>
+    <div class="card"><h3>Compuerta bloqueando</h3>
+<pre>{"decision": "block",
+ "reason": "Você escreveu código e não rodou: calc.py.
+  Rode cada um (ou os testes) e mostre a saída real
+  antes de dizer que funciona."}</pre>
+      <p>Listar o abrir el archivo (<code>ls</code>, <code>cat</code>), <code>git commit</code> o <code>py_compile</code> no cuentan como ejecución.</p></div>
+    <div class="card"><h3>Informe del mentor</h3>
+<pre>| passo            | rodou              | saiu               | regra  |
+|------------------|--------------------|--------------------|--------|
+| menor versão     | contar('a b a')    | {'a': 2, 'b': 1}   | R2     |
+| previsão × saída | o mesmo            | bateu              | R3, R4 |
+| versão quebrada  | 'a  b'.split(' ')  | ['a', '', 'b']     | R5     |</pre></div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>Dónde está el kit y hacia dónde va</h2>
+  <p class="sub">La documentación completa está en el repositorio: plan de la solución, plan de entrenamiento y guía de adaptación.</p>
+  <div class="phase"><div class="tag">1.0</div><div class="d"><strong>Kit publicado</strong><span>Generador, 4 recolectores, 4 validadores, agente, 6 skills, compuerta de ejecución, ejemplo ficticio y 56 pruebas automáticas.</span></div></div>
+  <div class="phase"><div class="tag">Piloto</div><div class="d"><strong>Primer mentor real</strong><span>Un experto de verdad pasando por las fases y las 3 pruebas de aceptación en una sesión de Claude Code.</span></div></div>
+  <div class="phase"><div class="tag">Entrenamiento</div><div class="d"><strong>Ruta de formación</strong><span>6 módulos, 14 clases cortas y un proyecto final con rúbrica de 10 puntos (docs/TREINAMENTO.md (en portugués)).</span></div></div>
+  <div class="phase"><div class="tag">Después</div><div class="d"><strong>Consejo de mentores y otros agentes</strong><span>Varios expertos consultados juntos, y el núcleo (acervo, wiki, reglas) portado a Codex y otros agentes.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Claude Code</div><div class="pill">Python (solo biblioteca estándar)</div><div class="pill">MIT</div>
+    <p style="margin-top:18px">Mentor-Especialista · kit abierto de la comunidad ·
+      <a href="https://github.com/inematds/mentor-especialista">inematds/mentor-especialista</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='mentor-especialista-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

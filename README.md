@@ -1,9 +1,17 @@
 # Mentor-Especialista
 
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
+
+[![Mentor-Especialista](guia/assets/banner.jpg)](https://inematds.github.io/mentor-especialista/guia/)
+
 **Kit pronto para transformar o método de um especialista num mentor dentro do Claude Code.**
 O mentor ensina construindo junto, revisa antes da entrega e só diz "funciona" depois de rodar.
 
 > Não é clone de voz nem imitação de pessoa. O kit copia o **método**: como o especialista explica, constrói, depura e verifica. Cada regra do mentor aponta para um trecho real do que a pessoa publicou.
+
+## 📖 Guia de uso
+
+Guia completo (landing + passo a passo): **https://inematds.github.io/mentor-especialista/guia/**
 
 ## Por que existe
 
@@ -94,6 +102,7 @@ python3 -m pytest -q tests     # → 56 passed
 - [docs/PLANO.md](docs/PLANO.md): a solução por inteiro, as fases, os riscos e as proteções
 - [docs/TREINAMENTO.md](docs/TREINAMENTO.md): plano de treinamento em 6 módulos, com rubrica
 - [docs/ADAPTAR.md](docs/ADAPTAR.md): transcritores, outras linguagens, outros agentes
+- [docs/PILOTO.md](docs/PILOTO.md): roteiro para levar o primeiro especialista real por todas as fases
 
 ## Uso responsável
 

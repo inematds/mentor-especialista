@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0 — 2026-10-05
+
+- Guia landing PT/EN/ES em `guia/` (GitHub Pages), READMEs EN/ES, capa do catálogo.
+- `docs/PILOTO.md`: roteiro do primeiro mentor real.
+
 ## 1.0.0 — 2026-10-05
 
 - Gerador `novo-mentor.py` e template completo: escopo, raw, wiki, regras e config.
